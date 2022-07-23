@@ -1,0 +1,61 @@
+from pandas.core.dtypes.missing import maybe_fill
+import pandas as pd
+
+mydict=dict() 
+print("Merhaba lütfen kaç adet öğrenci kaydı gireceğinizi seçiniz. ")
+adet=int(input("KAÇ KAYIT:"))
+
+
+def ogr_name_func(adet): 
+
+  for i in range(adet):
+    ogrenci=input(str("Öğrenci:"))  
+    name=input(str("isim:"))
+    surname=input(str("Soyisim:"))
+    puan=int(input("puan:"))
+    
+    
+    if puan>=90 and puan<=100:
+        harf = "AA GEÇTİ"
+    elif puan>=85 and puan<=89:
+        harf = "BA GEÇTİ"
+    elif puan>=80 and puan<=84:
+        harf = "BB GEÇTİ"
+    elif puan>=75 and puan<=79:
+        harf = "CB GEÇTİ"
+    elif puan>=70 and puan<=74:
+        harf = "CC GEÇTİ"
+    elif puan>=65 and puan<=69:
+        harf = "DC KOŞULLU GEÇTİ"
+    elif puan>=60 and puan<=64:
+        harf = "DD KOŞULLU GEÇTİ"
+    elif puan>=50 and puan<=59:
+        harf = "FD KALDI"
+    else:
+        harf = "FF KALDI"
+    Arr=[]
+    Arr.append(name)
+    Arr.append(surname)
+    Arr.append(puan) 
+    Arr.append(harf)
+    mydict[ogrenci]=Arr
+   
+    print(mydict)
+
+
+def isPass():
+  for i in mydict.values():
+    if i[2]>50:
+      i.append("geçti")
+    else:
+      i.append("kaldı")
+  print(mydict)
+
+ogr_name_func(adet)
+isPass()
+list1=["Ad","Soyad","Puan","harf notu","Sonuç"]
+data=pd.DataFrame(mydict,list1)
+print("----Dataframe Gösterimi----")
+print(data)
+data.to_excel("excel_harfNotları.xlsx")
+
